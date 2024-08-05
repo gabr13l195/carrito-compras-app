@@ -7,8 +7,8 @@ const Stack = createStackNavigator();
 export const Stacknavigator= () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Pantalla Inicio Sesion" component={InicioSesion} />
-            <Stack.Screen name="Pantalla Registro" component={Registrarse} />
+            <Stack.Screen name="INICIO DE SESION" component={InicioSesion} />
+            <Stack.Screen name="REGISTRO" component={Registrarse} />
         </Stack.Navigator>
     );
 }

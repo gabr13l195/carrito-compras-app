@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView } from 'react-native';
-import { styles } from '../components/Styles'; // Asegúrate de que la ruta es correcta
+import { styles } from '../components/Styles';
 
 export const Registrarse = () => {
     const [name, setName] = useState('');
@@ -10,11 +10,12 @@ export const Registrarse = () => {
     const [email, setEmail] = useState('');
 
     const handleRegister = () => {
-        console.log('Nombres:', name);
-        console.log('Nombre de Usuario:', username);
-        console.log('Contraseña:', password);
-        console.log('Repita la Contraseña:', confirmPassword);
-        console.log('Correo:', email);
+        console.log("Registro de nuevo usuario:");
+        console.log("Nombres:", name);
+        console.log("Nombre de Usuario:", username);
+        console.log("Contraseña:", password);
+        console.log("Confirma Contraseña:", confirmPassword);
+        console.log("Correo:", email);
     };
 
     return (
@@ -53,7 +54,8 @@ export const Registrarse = () => {
                 onChangeText={setEmail}
                 keyboardType="email-address"
             />
-            <Button title="Registrar"/>
+            <Button title="Registrar" onPress={handleRegister} />
         </ScrollView>
     );
 };
+

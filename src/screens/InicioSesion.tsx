@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { styles } from '../components/Styles'; 
+import { styles } from '../components/Styles';
+
 
 interface Props extends StackScreenProps<any, any> {};
 
@@ -34,3 +35,4 @@ export const InicioSesion = ({ navigation }: Props) => {
         </View>
     );
 };
+

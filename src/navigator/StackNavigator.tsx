@@ -6,7 +6,8 @@ const Stack = createStackNavigator();
 
 export const Stacknavigator= () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{cardStyle:{backgroundColor: 'white'}}}>
             <Stack.Screen name="INICIO DE SESION" component={InicioSesion} />
             <Stack.Screen name="REGISTRO" component={Registrarse} />
         </Stack.Navigator>

@@ -9,6 +9,14 @@ export const Registrarse = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
 
+    const handleRegister = () => {
+        console.log('Nombres:', name);
+        console.log('Nombre de Usuario:', username);
+        console.log('Contraseña:', password);
+        console.log('Repita la Contraseña:', confirmPassword);
+        console.log('Correo:', email);
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Regístrate</Text>

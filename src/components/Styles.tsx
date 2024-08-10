@@ -2,29 +2,33 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: '#359EB8', 
     },
     title: {
-        fontSize: 24,
+        fontSize: 35,
         marginBottom: 20,
+        color: 'white',
     },
     input: {
         width: '100%',
         padding: 10,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#ccc',
         marginBottom: 10,
         borderRadius: 5,
+        color: 'white'
     },
     button: {
-        marginTop: 10,
+        marginTop: 15,
     },
     linkText: {
         marginTop: 20,
-        color: 'blue',
+        color: 'white',
         textDecorationLine: 'underline',
     }
 });
+

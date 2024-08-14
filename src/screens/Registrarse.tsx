@@ -2,20 +2,30 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView } from 'react-native';
 import { styles } from '../components/Styles';
 
+interface RegisterForm {
+    name: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+    email: string;
+}
+
 export const Registrarse = () => {
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [registerForm, setRegisterForm] = useState<RegisterForm>({
+        name: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        email: ''
+    });
 
     const handleRegister = () => {
         console.log("Registro de nuevo usuario:");
-        console.log("Nombres:", name);
-        console.log("Nombre de Usuario:", username);
-        console.log("Contraseña:", password);
-        console.log("Confirma Contraseña:", confirmPassword);
-        console.log("Correo:", email);
+        console.log("Datos de Registro:", registerForm);
+    };
+
+    const updateRegisterForm = (key: keyof RegisterForm, value: string) => {
+        setRegisterForm(prev => ({ ...prev, [key]: value }));
     };
 
     return (
@@ -24,34 +34,34 @@ export const Registrarse = () => {
             <TextInput
                 style={styles.input}
                 placeholder="Nombres"
-                value={name}
-                onChangeText={setName}
+                value={registerForm.name}
+                onChangeText={value => updateRegisterForm('name', value)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Nombre de Usuario"
-                value={username}
-                onChangeText={setUsername}
+                value={registerForm.username}
+                onChangeText={value => updateRegisterForm('username', value)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword}
+                value={registerForm.password}
+                onChangeText={value => updateRegisterForm('password', value)}
                 secureTextEntry={true}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Repita la Contraseña"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                value={registerForm.confirmPassword}
+                onChangeText={value => updateRegisterForm('confirmPassword', value)}
                 secureTextEntry={true}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Correo"
-                value={email}
-                onChangeText={setEmail}
+                value={registerForm.email}
+                onChangeText={value => updateRegisterForm('email', value)}
                 keyboardType="email-address"
             />
             <Button title="Registrar" onPress={handleRegister} />

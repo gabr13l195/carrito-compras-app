@@ -5,14 +5,21 @@ import { styles } from '../components/Styles';
 
 interface Props extends StackScreenProps<any, any> {};
 
+interface LoginForm {
+    username: string;
+    password: string;
+}
+
 export const InicioSesion = ({ navigation }: Props) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [loginForm, setLoginForm] = useState<LoginForm>({ username: '', password: '' });
 
     const handleLogin = () => {
         console.log("Intento de inicio de sesión:");
-        console.log("Usuario:", username);
-        console.log("Contraseña:", password);
+        console.log("Datos de Login:", loginForm);
+    };
+
+    const updateLoginForm = (key: keyof LoginForm, value: string) => {
+        setLoginForm(prev => ({ ...prev, [key]: value }));
     };
 
     return (
@@ -21,14 +28,14 @@ export const InicioSesion = ({ navigation }: Props) => {
             <TextInput
                 style={styles.input}
                 placeholder="Usuario"
-                value={username}
-                onChangeText={setUsername}
+                value={loginForm.username}
+                onChangeText={value => updateLoginForm('username', value)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword}
+                value={loginForm.password}
+                onChangeText={value => updateLoginForm('password', value)}
                 secureTextEntry={true}
             />
             <Button title="Ingresar" onPress={handleLogin} />

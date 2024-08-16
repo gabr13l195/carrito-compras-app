@@ -1,71 +1,74 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, ScrollView } from 'react-native';
+import { Text, View, TextInput, Button, ScrollView, StatusBar } from 'react-native';
 import { styles } from '../components/Styles';
+import { THIRD_COLOR } from '../commons/constant';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
+import { useNavigation } from '@react-navigation/native';
 
-interface RegisterForm {
-    name: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-    email: string;
-}
+interface Props extends NativeStackScreenProps<any, any> { };
 
-export const Registrarse = () => {
-    const [registerForm, setRegisterForm] = useState<RegisterForm>({
-        name: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        email: ''
-    });
+export const Registrarse = ({ navigation }: Props) => {
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleRegister = () => {
         console.log("Registro de nuevo usuario:");
-        console.log("Datos de Registro:", registerForm);
-    };
-
-    const updateRegisterForm = (key: keyof RegisterForm, value: string) => {
-        setRegisterForm(prev => ({ ...prev, [key]: value }));
+        console.log("Nombres:", name);
+        console.log("Nombre de Usuario:", username);
+        console.log("Contraseña:", password);
+        console.log("Confirma Contraseña:", confirmPassword);
+        console.log("Correo:", email);
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <StatusBar backgroundColor={THIRD_COLOR} />
             <Text style={styles.title}>Regístrate</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Nombres"
-                value={registerForm.name}
-                onChangeText={value => updateRegisterForm('name', value)}
+                value={name}
+                onChangeText={setName}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Nombre de Usuario"
-                value={registerForm.username}
-                onChangeText={value => updateRegisterForm('username', value)}
+                value={username}
+                onChangeText={setUsername}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Contraseña"
-                value={registerForm.password}
-                onChangeText={value => updateRegisterForm('password', value)}
+                value={password}
+                onChangeText={setPassword}
                 secureTextEntry={true}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Repita la Contraseña"
-                value={registerForm.confirmPassword}
-                onChangeText={value => updateRegisterForm('confirmPassword', value)}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
                 secureTextEntry={true}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Correo"
-                value={registerForm.email}
-                onChangeText={value => updateRegisterForm('email', value)}
+                value={email}
+                onChangeText={setEmail}
                 keyboardType="email-address"
             />
-            <Button title="Registrar" onPress={handleRegister} />
+            <TouchableOpacity onPress={handleRegister}>
+                <Text style={styles.button}>Registrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('INICIO DE SESION')}>
+                <Text style={styles.linkText}>
+                    ¿Ya tienes una cuenta? Inicia sesión.
+                </Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 };
-

@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { InicioSesion } from '../screens/InicioSesion';
 import { Registrarse } from '../screens/Registrarse';
-import { PRIMARY_COLOR, THIRD_COLOR } from '../commons/constant';
+import { PRIMARY_COLOR, THIRD_COLOR } from '../commons/Constant';
 
 const Stack = createStackNavigator();
 

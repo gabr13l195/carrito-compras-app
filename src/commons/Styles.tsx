@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR, SECOND_COLOR, THIRD_COLOR } from '../commons/constant';
+import { PRIMARY_COLOR, SECOND_COLOR, THIRD_COLOR } from './Constant';
+
+
 
 export const styles = StyleSheet.create({
     container: {
@@ -39,6 +41,13 @@ export const styles = StyleSheet.create({
         backgroundColor: SECOND_COLOR,
         color: 'white',
         borderRadius: 11
+    },
+    iconPassword:{
+        color: SECOND_COLOR,
+        position: 'absolute',
+        right: 20,
+        zIndex: 1,
+        marginTop: 19
     },
     linkText: {
         marginTop: 20,

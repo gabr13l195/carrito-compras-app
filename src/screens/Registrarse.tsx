@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView, StatusBar } from 'react-native';
-import { styles } from '../components/Styles';
-import { THIRD_COLOR } from '../commons/constant';
+import { styles } from '../commons/Styles';
+import { THIRD_COLOR } from '../commons/Constant';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from '@react-navigation/native';
+import { TitleComponent } from '../components/TitleComponent';
 
 interface Props extends NativeStackScreenProps<any, any> { };
 
@@ -27,7 +28,7 @@ export const Registrarse = ({ navigation }: Props) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <StatusBar backgroundColor={THIRD_COLOR} />
-            <Text style={styles.title}>Regístrate</Text>
+            <TitleComponent title='Registrarse' />
             <TextInput
                 style={styles.input}
                 placeholder="Nombres"

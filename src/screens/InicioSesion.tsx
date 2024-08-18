@@ -7,92 +7,83 @@ import { StatusBar } from 'expo-status-bar';
 import { PRIMARY_COLOR, THIRD_COLOR, SECOND_COLOR } from '../commons/Constant';
 import { InputComponent } from '../components/InputComponent';
 import { ButtonComponent } from '../components/ButtonComponent';
+import { User } from '../navigator/StackNavigator';
 
-
-
-interface Props extends StackScreenProps<any, any> { };
-
-interface FormLogin{
-    usuario: string;
-    contraseña: string;
+interface Props {
+    user: User[];
 }
-//Arrgelo de usuarios
-interface User{
-    id: number;
+
+interface Props extends StackScreenProps<any, any> {}
+
+interface FormLogin {
     email: string;
     password: string;
 }
 
-export const InicioSesion = ({ navigation }: Props) => {
-    //Arreglo de usuarios
-    const users: User[] =[
-        {id: 1, email:'wilmer@gmail.com', password:'1234'},
-        {id: 2, email:'gabriel@gmail.com', password:'1234'},
-    ]
+export const InicioSesion = ({ user, navigation }: Props) => {
 
-    //Aqui se toma los valores de input
+    // Aqui se toman los valores de input
     const [formLogin, setFormLogin] = useState<FormLogin>({
-        usuario: '',
-        contraseña: '' 
+        email: '',
+        password: ''
     });
-    const handleSetValues=(name:string, value:string)=>{
-        setFormLogin({...formLogin, [name]:value})
-    }
-    const handleSingIn = () =>{
-        if(formLogin.usuario === ''|| formLogin.contraseña === ''){
-            Alert.alert(
-                'Error',
-                'Complete todos los campos'
-            )
+
+    const handleSetValues = (name: string, value: string) => {
+        setFormLogin({ ...formLogin, [name]: value });
+    };
+
+    const handleSingIn = () => {
+        if (!formLogin.email || !formLogin.password) {
+            Alert.alert('Error', 'Complete todos los campos');
             return;
         }
 
-        //Validar que exista usuario
-        if(verifyUser()===null){
-            Alert.alert(
-                'Error',
-                'Usuario y/o Contraseña incorrectas'
-            )
+        // Validar que exista usuario
+        if (verifyUser()) {
+            Alert.alert('Éxito', 'Ingreso exitoso');
+            console.log(formLogin);
+        } else {
+            Alert.alert('Error', 'Usuario y/o Contraseña incorrectas');
         }
-        console.log(formLogin)
-    }
+    };
 
-    //Verificar si usuario esta en el arreglo
-    const verifyUser =()=>{
-        const existUser=users.filter(
-            user=>user.email=== formLogin.usuario && 
-            user.password===formLogin.contraseña)[0];
-        return existUser;
-    }
+    // Verificar si usuario está en el arreglo
+    const verifyUser = () => {
+        return user.some(
+            u => u.email === formLogin.email && u.password === formLogin.password
+        );
+    };
 
-    //Hook useState: Manipular visualizaion contraseña
+    // Hook useState: Manipular visualización contraseña
     const [hiddenPassword, setHiddenPassword] = useState<boolean>(true);
 
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={THIRD_COLOR} />
-            <TitleComponent title='Iniciar Sesion' />
-            <Text style={styles.text} >
+            <TitleComponent title='Iniciar Sesión' />
+            <Text style={styles.text}>
                 Realiza tus compras de manera segura y confiable
             </Text>
-                <InputComponent
-                    placeholder='Correo' 
-                    handleSetValues={handleSetValues} 
-                    name='email'/>
-                <InputComponent 
-                    placeholder='Contraseña'
-                    handleSetValues={handleSetValues} 
-                    name='password' 
-                    isPassword={hiddenPassword}
-                />
-            <ButtonComponent 
-                textButton='Ingresar' 
-                onPress={handleSingIn}/>
-            <TouchableOpacity 
+            <InputComponent
+                placeholder='Correo'
+                handleSetValues={handleSetValues}
+                name='email'
+            />
+            <InputComponent
+                placeholder='Contraseña'
+                handleSetValues={handleSetValues}
+                name='password'
+                isPassword={hiddenPassword}
+            />
+            <ButtonComponent
+                textButton='Ingresar'
+                onPress={handleSingIn}
+            />
+            <TouchableOpacity
                 onPress={() => navigation.navigate('REGISTRO')}>
-                    <Text style={styles.linkText}>
-                        ¿No tienes una cuenta? Regístrate ahora
-                    </Text>
+                <Text style={styles.linkText}>
+                    ¿No tienes una cuenta? Regístrate ahora
+                </Text>
             </TouchableOpacity>
         </View>
     );

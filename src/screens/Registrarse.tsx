@@ -1,68 +1,100 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, ScrollView, StatusBar } from 'react-native';
+import { Text, View, TextInput, Button, ScrollView, StatusBar, Alert } from 'react-native';
 import { styles } from '../commons/Styles';
 import { THIRD_COLOR } from '../commons/Constant';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
-import { useNavigation } from '@react-navigation/native';
 import { TitleComponent } from '../components/TitleComponent';
+import { InputComponent } from '../components/InputComponent';
 
-interface Props extends NativeStackScreenProps<any, any> { };
+interface Props extends NativeStackScreenProps<any, any> { }
+
+interface FormRegister {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    celular: string;
+}
 
 export const Registrarse = ({ navigation }: Props) => {
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [email, setEmail] = useState('');
+    // Aquí se toman los valores de input
+    const [formRegister, setFormRegister] = useState<FormRegister>({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        celular: ''
+    });
 
-    const handleRegister = () => {
-        console.log("Registro de nuevo usuario:");
-        console.log("Nombres:", name);
-        console.log("Nombre de Usuario:", username);
-        console.log("Contraseña:", password);
-        console.log("Confirma Contraseña:", confirmPassword);
-        console.log("Correo:", email);
+    const handleSetValues = (name: string, value: string) => {
+        setFormRegister({ ...formRegister, [name]: value });
+    };
+
+    const handleSignUp = () => {
+        const { name, email, password, confirmPassword, celular } = formRegister;
+
+        // Validación de campos vacíos
+        if (!name || !email || !password || !confirmPassword || !celular) {
+            Alert.alert(
+                'Error',
+                'Complete todos los campos'
+            );
+            return;
+        }
+
+        // Verificación de contraseñas iguales
+        if (password !== confirmPassword) {
+            Alert.alert(
+                'Error',
+                'Las contraseñas no coinciden'
+            );
+            return;
+        }
+
+        // Si todo es correcto, se imprime el formulario en la consola
+        console.log(formRegister);
+
+        // Mensaje de registro exitoso
+        Alert.alert(
+            'Éxito',
+            'Registro exitoso'
+        );
+        
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <StatusBar backgroundColor={THIRD_COLOR} />
+            <StatusBar />
             <TitleComponent title='Registrarse' />
-            <TextInput
-                style={styles.input}
-                placeholder="Nombres"
-                value={name}
-                onChangeText={setName}
+            <InputComponent
+                placeholder='Nombres y Apellidos'
+                handleSetValues={handleSetValues}
+                name='name'
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre de Usuario"
-                value={username}
-                onChangeText={setUsername}
+            <InputComponent
+                placeholder='Correo Electrónico'
+                handleSetValues={handleSetValues}
+                name='email'
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={true}
+            <InputComponent
+                placeholder='Celular'
+                handleSetValues={handleSetValues}
+                name='celular'
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Repita la Contraseña"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                secureTextEntry={true}
+            <InputComponent
+                placeholder='Contraseña'
+                handleSetValues={handleSetValues}
+                name='password'
+                isPassword={true}
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Correo"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
+            <InputComponent
+                placeholder='Repita la contraseña'
+                handleSetValues={handleSetValues}
+                name='confirmPassword' // Cambié el name a 'confirmPassword' para manejar correctamente la confirmación de contraseña
+                isPassword={true}
             />
-            <TouchableOpacity onPress={handleRegister}>
+            <TouchableOpacity onPress={handleSignUp}>
                 <Text style={styles.button}>Registrar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('INICIO DE SESION')}>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Modal, Text, Button, FlatList } from 'react-native';
 import { styles } from '../commons/Styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ButtonComponent } from '../components/ButtonComponent';
 
 interface CartItem {
     id: number;
@@ -37,8 +39,14 @@ export const ModalHome = ({ isVisible, setShowModal, cart, setCart }: Props) => 
                     keyExtractor={(item) => item.id.toString()}
                 />
                 <Text style={styles.totalAmountText}>Total: ${totalAmount.toFixed(2)}</Text>
-                <Button title="COMPRAR" onPress={handlePurchase} />
-                <Button title="Cerrar" onPress={setShowModal} />
+                <ButtonComponent
+                    textButton='Comprar'
+                    onPress={handlePurchase}
+                />
+                <ButtonComponent
+                    textButton='Cerrar'
+                    onPress={handlePurchase}
+                />
             </View>
         </Modal>
     );

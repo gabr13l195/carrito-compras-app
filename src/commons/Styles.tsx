@@ -7,13 +7,13 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: THIRD_COLOR, 
+        backgroundColor: THIRD_COLOR,
         borderTopRightRadius: 35,
         borderTopLeftRadius: 35,
     },
     containerHome: {
         flexGrow: 1,
-        backgroundColor: THIRD_COLOR, 
+        backgroundColor: THIRD_COLOR,
         paddingTop: 70
     },
     title: {
@@ -59,16 +59,16 @@ export const styles = StyleSheet.create({
     },
     titleHome: {
         fontSize: 42,
-        marginBottom: 20,  
+        marginBottom: 20,
         color: PRIMARY_COLOR,
         textAlign: 'center',
         fontStyle: 'italic',
-        fontWeight: 'bold', 
+        fontWeight: 'bold',
     },
     productList: {
         paddingHorizontal: 20,
         paddingBottom: 100,
-        
+
     },
     productItem: {
         backgroundColor: '#E4E7EB',
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 3,
         elevation: 5,
-        position: 'relative', 
+        position: 'relative',
     },
     productImage: {
         width: 100,
@@ -120,5 +120,18 @@ export const styles = StyleSheet.create({
         right: 10,
         color: SECOND_COLOR,  // Añadir color según tu preferencia
     },
+    modalContainer: {
+        flex: 1,   
+        marginRight: 50,
+        marginLeft: 50,
+        marginBottom: 170,
+        marginTop: 170,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+        backgroundColor: THIRD_COLOR,
+        borderColor: SECOND_COLOR,
+    }
 });
+
 

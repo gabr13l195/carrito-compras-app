@@ -34,9 +34,9 @@ export const Stacknavigator = () => {
                 name="Registro"
                 children={(props) => <Registrarse {...props} users={users} addUser={addUser} />} />
             <Stack.Screen
-                options={{ headerShown: false }}  // Opcional: oculta el header si no lo necesitas
+                options={{ headerShown: false }}  
                 name="HomeScreen"
-                component={HomeScreen}  // Registra HomeScreen
+                component={HomeScreen} 
             />
         </Stack.Navigator>
     );

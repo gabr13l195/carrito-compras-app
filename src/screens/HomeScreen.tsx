@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, FlatList, Image } from 'react-native';
 import { styles } from '../commons/Styles';
 import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ModalHome } from './ModalHome';
 
 interface Product {
     id: number;
@@ -12,6 +14,9 @@ interface Product {
 }
 
 export const HomeScreen = () => {
+    const [showModal, setShowModal] = useState<boolean>(false);
+
+
     const products: Product[] = [
         { id: 1, name: 'Audífonos inalámbricos SONY WH-1000XM4', price: 280, stock: 15, pathImage: 'https://ecsonyb2c.vtexassets.com/arquivos/ids/242492-1600-auto?v=637323390039300000&width=1600&height=auto&aspect=true' },
         { id: 2, name: 'Audífonos inalámbricos SONY INZONE H9', price: 275, stock: 12, pathImage: 'https://ecsonyb2c.vtexassets.com/arquivos/ids/250276-1600-auto?v=637920890581300000&width=1600&height=auto&aspect=true' },
@@ -23,8 +28,14 @@ export const HomeScreen = () => {
 
     const renderItem = ({ item }: { item: Product }) => (
         <View style={styles.productItem}>
-            <MaterialIcons name="add-box" size={33} color="white" style={styles.addIcon}/>
-            <Image source={{ uri: item.pathImage }} style={styles.productImage} />
+            <MaterialIcons 
+                name="add-box" 
+                size={33} color="white" 
+                style={styles.addIcon} 
+                onPress={()=>setShowModal(!showModal)}/>
+            <Image 
+                source={{ uri: item.pathImage }} 
+                style={styles.productImage} />
             <Text style={styles.productName}>{item.name}</Text>
             <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
             <Text style={styles.productStock}>Stock: {item.stock}</Text>
@@ -34,8 +45,14 @@ export const HomeScreen = () => {
     return (
         <View style={styles.containerHome}>
             <View style={styles.header}>
-                <Text style={styles.titleHome}>PRODUCTOS</Text>
-                <MaterialIcons name="shopping-cart" size={45} color="#000" style={styles.cartIcon} />
+                <Text
+                    style={styles.titleHome}>
+                        PRODUCTOS</Text>
+                <MaterialIcons
+                    name="shopping-cart"
+                    size={45} color="#000"
+                    style={styles.cartIcon} 
+                    />
             </View>
             <FlatList
                 data={products}
@@ -43,7 +60,10 @@ export const HomeScreen = () => {
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.productList}
             />
+            <ModalHome isVisible={showModal} setShowModal={()=>setShowModal(!showModal)}/>
         </View>
+
+
     );
 };
 

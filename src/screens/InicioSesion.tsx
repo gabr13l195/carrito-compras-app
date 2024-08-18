@@ -8,6 +8,7 @@ import { ButtonComponent } from '../components/ButtonComponent';
 import { TitleComponent } from '../components/TitleComponent';
 import { User } from '../navigator/StackNavigator';
 
+
 interface Props extends StackScreenProps<any, any> {
     users: User[];
 }
@@ -36,9 +37,8 @@ export const InicioSesion = ({ users, navigation }: Props) => {
         }
 
         if (verifyUser()) {
-            Alert.alert('Éxito', 'Ingreso exitoso');
-            console.log(formLogin);
-            // Navegar a otra pantalla si es necesario
+            // Redirigir a HomeScreen en lugar de mostrar una alerta
+            navigation.navigate('HomeScreen');
         } else {
             Alert.alert('Error', 'Usuario y/o Contraseña incorrectas');
         }
@@ -81,4 +81,3 @@ export const InicioSesion = ({ users, navigation }: Props) => {
         </View>
     );
 };
-

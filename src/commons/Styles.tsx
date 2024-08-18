@@ -115,9 +115,8 @@ export const styles = StyleSheet.create({
         color: SECOND_COLOR
     },
     addIcon: {
-        position: 'absolute',
         top: 10,
-        right: 10,
+        right: -90,
         color: SECOND_COLOR,  // Añadir color según tu preferencia
     },
     modalContainer: {
@@ -131,7 +130,20 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: THIRD_COLOR,
         borderColor: SECOND_COLOR,
-    }
+    },
+    cartItem: {
+        marginBottom: 10,
+    },
+    cartItemText: {
+        fontSize: 18,
+        color: PRIMARY_COLOR,
+    },
+    totalAmountText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: SECOND_COLOR,
+        marginBottom: 20,
+    },
 });
 
 

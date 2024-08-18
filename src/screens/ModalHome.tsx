@@ -1,24 +1,50 @@
 import React from 'react';
-import { View, Modal, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Modal, Text, Button, FlatList } from 'react-native';
 import { styles } from '../commons/Styles';
 
-interface Props{
-    isVisible: boolean;
-    setShowModal: ()=> void;
+interface CartItem {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
 }
 
-export const ModalHome = ({isVisible, setShowModal}:Props) =>{
-    return(
-        <Modal visible={isVisible} animationType='fade' transparent={true}>
+interface Props {
+    isVisible: boolean;
+    setShowModal: () => void;
+    cart: CartItem[];
+    setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}
+
+export const ModalHome = ({ isVisible, setShowModal, cart, setCart }: Props) => {
+    const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const handlePurchase = () => {
+        setCart([]);
+        setShowModal();
+        // Aquí podrías añadir más lógica para manejar la compra
+    };
+
+    return (
+        <Modal visible={isVisible} animationType="fade" transparent={true}>
             <View style={styles.modalContainer}>
-                <TouchableOpacity
-                    onPress={setShowModal}>
-                    <Text>Desde el modal</Text>
-                </TouchableOpacity>
+                <FlatList
+                    data={cart}
+                    renderItem={({ item }) => (
+                        <View style={styles.cartItem}>
+                            <Text style={styles.cartItemText}>{item.name} - ${item.price.toFixed(2)} x {item.quantity}</Text>
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                />
+                <Text style={styles.totalAmountText}>Total: ${totalAmount.toFixed(2)}</Text>
+                <Button title="COMPRAR" onPress={handlePurchase} />
+                <Button title="Cerrar" onPress={setShowModal} />
             </View>
         </Modal>
-    )
-}
+    );
+};
+
 
 
 

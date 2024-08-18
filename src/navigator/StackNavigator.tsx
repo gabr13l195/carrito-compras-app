@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { InicioSesion } from '../screens/InicioSesion';
 import { Registrarse } from '../screens/Registrarse';
-import { HomeScreen } from '../screens/HomeScreen';  // Importa HomeScreen
+import { HomeScreen } from '../screens/HomeScreen'; 
 import { PRIMARY_COLOR, THIRD_COLOR } from '../commons/Constant';
 import { useState } from 'react';
 

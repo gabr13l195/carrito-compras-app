@@ -37,25 +37,21 @@ export const Registrarse = ({ navigation, users, addUser }: Props) => {
     const handleSignUp = () => {
         const { name, email, password, confirmPassword, celular } = formRegister;
 
-        // Validación de campos vacíos
         if (!name || !email || !password || !confirmPassword || !celular) {
             Alert.alert('Error', 'Complete todos los campos');
             return;
         }
 
-        // Verificación de contraseñas iguales
         if (password !== confirmPassword) {
             Alert.alert('Error', 'Las contraseñas no coinciden');
             return;
         }
 
-        // Verificar si el correo ya está registrado
         if (users.some(user => user.email === email)) {
             Alert.alert('Error', 'Este correo ya está registrado');
             return;
         }
 
-        // Añadir el nuevo usuario
         const newUser: User = {
             id: users.length + 1,
             email: email,
@@ -64,9 +60,8 @@ export const Registrarse = ({ navigation, users, addUser }: Props) => {
 
         addUser(newUser);
 
-        // Mensaje de registro exitoso
         Alert.alert('Éxito', 'Registro exitoso');
-        setFormRegister({ name: '', email: '', password: '', confirmPassword: '', celular: '' }); // Limpiar el formulario
+        setFormRegister({ name: '', email: '', password: '', confirmPassword: '', celular: '' });
         navigation.navigate('InicioSesion');
     };
 

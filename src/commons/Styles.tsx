@@ -106,18 +106,18 @@ export const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',  // Alinea el título y el ícono a los extremos
-        alignItems: 'center',  // Asegura que estén centrados verticalmente
-        paddingHorizontal: 20,  // Añade un poco de padding a los lados
+        justifyContent: 'space-between',  
+        alignItems: 'center',  
+        paddingHorizontal: 20,  
     },
     cartIcon: {
-        marginRight: 20,  // Añade espacio al lado derecho del icono
+        marginRight: 20, 
         color: SECOND_COLOR
     },
     addIcon: {
         top: 10,
         right: -90,
-        color: SECOND_COLOR,  // Añadir color según tu preferencia
+        color: SECOND_COLOR, 
     },
     modalContainer: {
         flex: 1,   

@@ -54,7 +54,6 @@ export const HomeScreen = () => {
             }
         });
 
-        // Reducción de stock
         products.find(item => item.id === product.id)!.stock -= 1;
     };
 

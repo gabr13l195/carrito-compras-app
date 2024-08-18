@@ -37,7 +37,6 @@ export const InicioSesion = ({ users, navigation }: Props) => {
         }
 
         if (verifyUser()) {
-            // Redirigir a HomeScreen en lugar de mostrar una alerta
             navigation.navigate('HomeScreen');
         } else {
             Alert.alert('Error', 'Usuario y/o Contraseña incorrectas');

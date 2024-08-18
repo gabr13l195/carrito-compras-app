@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, ScrollView, StatusBar, Alert } from 'react-native';
+import { Text, View, ScrollView, StatusBar, Alert } from 'react-native';
 import { styles } from '../commons/Styles';
-import { THIRD_COLOR } from '../commons/Constant';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { TitleComponent } from '../components/TitleComponent';
 import { InputComponent } from '../components/InputComponent';
+import { User } from '../navigator/StackNavigator';
 
-interface Props extends NativeStackScreenProps<any, any> { }
+
+interface Props {
+    navigation: any;
+    users: User[];
+    addUser: (newUser: User) => void;
+}
 
 interface FormRegister {
     name: string;
@@ -17,8 +21,7 @@ interface FormRegister {
     celular: string;
 }
 
-export const Registrarse = ({ navigation }: Props) => {
-    // Aquí se toman los valores de input
+export const Registrarse = ({ navigation, users, addUser }: Props) => {
     const [formRegister, setFormRegister] = useState<FormRegister>({
         name: '',
         email: '',
@@ -34,33 +37,27 @@ export const Registrarse = ({ navigation }: Props) => {
     const handleSignUp = () => {
         const { name, email, password, confirmPassword, celular } = formRegister;
 
-        // Validación de campos vacíos
         if (!name || !email || !password || !confirmPassword || !celular) {
-            Alert.alert(
-                'Error',
-                'Complete todos los campos'
-            );
+            Alert.alert('Error', 'Complete todos los campos');
             return;
         }
 
-        // Verificación de contraseñas iguales
         if (password !== confirmPassword) {
-            Alert.alert(
-                'Error',
-                'Las contraseñas no coinciden'
-            );
+            Alert.alert('Error', 'Las contraseñas no coinciden');
             return;
         }
 
-        // Si todo es correcto, se imprime el formulario en la consola
-        console.log(formRegister);
+        const newUser: User = {
+            id: users.length + 1,
+            email: email,
+            password: password
+        };
 
-        // Mensaje de registro exitoso
-        Alert.alert(
-            'Éxito',
-            'Registro exitoso'
-        );
-        
+        addUser(newUser);
+
+        Alert.alert('Éxito', 'Registro exitoso');
+        setFormRegister({ name: '', email: '', password: '', confirmPassword: '', celular: '' }); // Limpiar el formulario
+        navigation.navigate('InicioSesion');
     };
 
     return (
@@ -91,13 +88,13 @@ export const Registrarse = ({ navigation }: Props) => {
             <InputComponent
                 placeholder='Repita la contraseña'
                 handleSetValues={handleSetValues}
-                name='confirmPassword' // Cambié el name a 'confirmPassword' para manejar correctamente la confirmación de contraseña
+                name='confirmPassword'
                 isPassword={true}
             />
             <TouchableOpacity onPress={handleSignUp}>
                 <Text style={styles.button}>Registrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('INICIO DE SESION')}>
+            <TouchableOpacity onPress={() => navigation.navigate('InicioSesion')}>
                 <Text style={styles.linkText}>
                     ¿Ya tienes una cuenta? Inicia sesión.
                 </Text>
@@ -105,3 +102,5 @@ export const Registrarse = ({ navigation }: Props) => {
         </ScrollView>
     );
 };
+
+

@@ -1,65 +1,58 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { styles } from '../commons/Styles';
-import { TitleComponent } from '../components/TitleComponent';
 import { StatusBar } from 'expo-status-bar';
-import { PRIMARY_COLOR, THIRD_COLOR, SECOND_COLOR } from '../commons/Constant';
 import { InputComponent } from '../components/InputComponent';
 import { ButtonComponent } from '../components/ButtonComponent';
+import { TitleComponent } from '../components/TitleComponent';
 import { User } from '../navigator/StackNavigator';
 
-interface Props {
-    user: User[];
+interface Props extends StackScreenProps<any, any> {
+    users: User[];
 }
-
-interface Props extends StackScreenProps<any, any> {}
 
 interface FormLogin {
     email: string;
     password: string;
 }
 
-export const InicioSesion = ({ user, navigation }: Props) => {
-
-    // Aqui se toman los valores de input
+export const InicioSesion = ({ users, navigation }: Props) => {
     const [formLogin, setFormLogin] = useState<FormLogin>({
         email: '',
         password: ''
     });
 
+    const [hiddenPassword, setHiddenPassword] = useState<boolean>(true);
+
     const handleSetValues = (name: string, value: string) => {
         setFormLogin({ ...formLogin, [name]: value });
     };
 
-    const handleSingIn = () => {
+    const handleSignIn = () => {
         if (!formLogin.email || !formLogin.password) {
             Alert.alert('Error', 'Complete todos los campos');
             return;
         }
 
-        // Validar que exista usuario
         if (verifyUser()) {
             Alert.alert('Éxito', 'Ingreso exitoso');
             console.log(formLogin);
+            // Navegar a otra pantalla si es necesario
         } else {
             Alert.alert('Error', 'Usuario y/o Contraseña incorrectas');
         }
     };
 
-    // Verificar si usuario está en el arreglo
     const verifyUser = () => {
-        return user.some(
+        return users.some(
             u => u.email === formLogin.email && u.password === formLogin.password
         );
     };
 
-    // Hook useState: Manipular visualización contraseña
-    const [hiddenPassword, setHiddenPassword] = useState<boolean>(true);
-
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={THIRD_COLOR} />
+            <StatusBar backgroundColor='#ccc' />
             <TitleComponent title='Iniciar Sesión' />
             <Text style={styles.text}>
                 Realiza tus compras de manera segura y confiable
@@ -77,10 +70,10 @@ export const InicioSesion = ({ user, navigation }: Props) => {
             />
             <ButtonComponent
                 textButton='Ingresar'
-                onPress={handleSingIn}
+                onPress={handleSignIn}
             />
             <TouchableOpacity
-                onPress={() => navigation.navigate('REGISTRO')}>
+                onPress={() => navigation.navigate('Registro')}>
                 <Text style={styles.linkText}>
                     ¿No tienes una cuenta? Regístrate ahora
                 </Text>
@@ -88,3 +81,4 @@ export const InicioSesion = ({ user, navigation }: Props) => {
         </View>
     );
 };
+

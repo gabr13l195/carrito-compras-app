@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, FlatList, Image } from 'react-native';
 import { styles } from '../commons/Styles';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface Product {
     id: number;
@@ -22,6 +23,7 @@ export const HomeScreen = () => {
 
     const renderItem = ({ item }: { item: Product }) => (
         <View style={styles.productItem}>
+            <MaterialIcons name="add-box" size={33} color="white" style={styles.addIcon}/>
             <Image source={{ uri: item.pathImage }} style={styles.productImage} />
             <Text style={styles.productName}>{item.name}</Text>
             <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
@@ -31,7 +33,10 @@ export const HomeScreen = () => {
 
     return (
         <View style={styles.containerHome}>
-            <Text style={styles.titleHome}>PRODUCTOS</Text>
+            <View style={styles.header}>
+                <Text style={styles.titleHome}>PRODUCTOS</Text>
+                <MaterialIcons name="shopping-cart" size={45} color="#000" style={styles.cartIcon} />
+            </View>
             <FlatList
                 data={products}
                 renderItem={renderItem}

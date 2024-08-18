@@ -81,6 +81,7 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 3,
         elevation: 5,
+        position: 'relative', 
     },
     productImage: {
         width: 100,
@@ -102,6 +103,22 @@ export const styles = StyleSheet.create({
     productStock: {
         fontSize: 14,
         color: '#555',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',  // Alinea el título y el ícono a los extremos
+        alignItems: 'center',  // Asegura que estén centrados verticalmente
+        paddingHorizontal: 20,  // Añade un poco de padding a los lados
+    },
+    cartIcon: {
+        marginRight: 20,  // Añade espacio al lado derecho del icono
+        color: SECOND_COLOR
+    },
+    addIcon: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        color: SECOND_COLOR,  // Añadir color según tu preferencia
     },
 });
 
